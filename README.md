@@ -21,6 +21,7 @@ You can load the resulting csv file in Excel. It is sorted by size and shows the
 
 ```
 [dp@cpt1 pwalk-hotspots]$ ./pwalk-import.py /projects/pwalk/csv
+
 Connected to sqlite3 version 2.6.0
 0.006 GiB total: Reading /projects/pwalk/csv/orMetagenome.csv ...
   ... inserting df in DB
@@ -35,17 +36,18 @@ Connected to sqlite3 version 2.6.0
 
 ```
 [dp@cpt1 pwalk-hotspots]$ ./pwalk-hotspots.py hotspots-projects.sqlite
+
+Connected to sqlite3 version 2.6.0
 Query hotspots-dcw.sqlite for entire data consumption ....
 Entire data consumption: 3153.541 TiB
 Query hotspots-projects.sqlite for hotspots >= 10 GiB ....
 Wrote hotspots-projects.csv with 43432 hotspots containing 2488.011 TiB total
-  2347.124 TiB have not been accessed in 30 days (or 0.1 years)
-  2226.474 TiB have not been accessed in 90 days (or 0.2 years)
-  1438.751 TiB have not been accessed in 365 days (or 1.0 years)
-  553.403 TiB have not been accessed in 1095 days (or 3.0 years)
-  174.361 TiB have not been accessed in 1825 days (or 5.0 years)
-  15.164 TiB have not been accessed in 3650 days (or 10.0 years)
-  0.0 TiB have not been accessed in 5475 days (or 15.0 years)
-
+  2347.124 TiB have not been accessed for 30 days (or 0.1 years)
+  2226.474 TiB have not been accessed for 90 days (or 0.2 years)
+  1438.751 TiB have not been accessed for 365 days (or 1.0 years)
+  553.403 TiB have not been accessed for 1095 days (or 3.0 years)
+  174.361 TiB have not been accessed for 1825 days (or 5.0 years)
+  15.164 TiB have not been accessed for 3650 days (or 10.0 years)
+  0.0 TiB have not been accessed for 5475 days (or 15.0 years)
 ```
 
