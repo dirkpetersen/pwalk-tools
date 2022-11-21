@@ -39,7 +39,7 @@ Query hotspots-dcw.sqlite for entire data consumption ....
 Entire data consumption: 3153.541 TiB
 Query hotspots-projects.sqlite for hotspots >= 10 GiB ....
 Wrote hotspots-projects.csv with 43432 hotspots containing 2488.011 TiB total
-  2488.011 TiB have not been accessed in 30 days (or 0.1 years)
+  2347.124 TiB have not been accessed in 30 days (or 0.1 years)
   2226.474 TiB have not been accessed in 90 days (or 0.2 years)
   1438.751 TiB have not been accessed in 365 days (or 1.0 years)
   553.403 TiB have not been accessed in 1095 days (or 3.0 years)
@@ -48,3 +48,4 @@ Wrote hotspots-projects.csv with 43432 hotspots containing 2488.011 TiB total
   0.0 TiB have not been accessed in 5475 days (or 15.0 years)
 
 ```
+
