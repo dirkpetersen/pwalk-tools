@@ -36,7 +36,7 @@ c.execute('pragma synchronous = NORMAL;')
 c.execute('pragma temp_store = MEMORY;')
 c.execute('pragma mmap_size = 30000000000;')
 
-print ('Connected to sqlite3 version %s' % sqlite3.version)
+print ('Connected to sqlite3 version %s' % sqlite3.sqlite_version)
 print(f"Query {db} for entire data consumption ....")
 c.execute('select sum(pw_dirsum) from hotspots')
 entirebytes=c.fetchall()[0][0]
