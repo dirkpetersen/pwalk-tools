@@ -1,16 +1,10 @@
 # Pwalk Tools
 
-PWalk tools offer post-processing and analysis for [John's pwalk](https://github.com/fizwit/filesystem-reporting-tools). If you do not already have a pwalk csv file you can analyse, the best way to generate a clean pwalk csv files is using Froster (https://github.com/dirkpetersen/froster). Run these commands to install Froster and prepare it for indexing
+Pwalk tools offer post-processing and analysis for [John's pwalk](https://github.com/fizwit/filesystem-reporting-tools). If you do not already have a pwalk csv file you can analyse, the best way to generate a clean pwalk csv files is using Froster (https://github.com/dirkpewersen/froster). Run these commands to install Froster and prepare it for indexing
 
 ```
 curl https://raw.githubusercontent.com/dirkpetersen/froster/main/install.sh | bash
 froster config --index
-```
-
-then download pwalk-info.py and make the script executable
-
-```
-curl https://raw.githubusercontent.com/dirkpetersen/pwalk-tools/main/pwalk-info.py | chmod +x - 
 ```
 
 Now let's scan a folder /shared/my_department and generate a csv file my_department.csv in the home directory 
@@ -21,7 +15,16 @@ froster index --pwalk-copy ~/my_department.csv /shared/my_department
 
 ## pwalk-info
 
-`pwalk-info.py` can analyse pwalk output csv files with Posix file system metadata. You can either pass an individual pwalk.csv file as an argument or an entire folder with multiple pwalk csv files. (this will only work if all csv files in a folder are pwalk csv files). `pwalk-info.py` has serveral sub commands:
+`pwalk-info.py` can analyse pwalk output csv files with Posix file system metadata. You can either pass an individual pwalk.csv file as an argument or an entire folder with multiple pwalk csv files. (this will only work if all csv files in a folder are pwalk csv files). `pwalk-info.py` has serveral sub commands.
+
+First, download pwalk-info.py, make the script executable and install the duckdb dependency
+
+```
+wget https://raw.githubusercontent.com/dirkpetersen/pwalk-tools/main/pwalk-info.py
+chmod +x pwalk-info.py
+python3 -m pip install --upgrade --user duckdb
+```
+
 
 To find out information about duplicate files run this command 
 
@@ -29,6 +32,14 @@ To find out information about duplicate files run this command
 ./pwalk-info.py dup --outfile duplicates-test.csv ./pwalk-test.csv
 ./pwalk-info.py dup --outfile duplicates-dep.csv ~/my_department.csv
 ./pwalk-info.py dup --outfile duplicates-folder.csv ~/my_folder
+```
+
+A duplicate occurs if 2 or more files stored in different directories have the same file name, modification time stamp and file size, see this example
+
+```
+cat duplicates-test.csv
+filename,modified,bytesize,no,duplicates
+UNICORN 7.0.0.953.zip,1689184019,1322724610,2,"['/home/groups/Vollum/Labs/ReichowLab/UNICORN 7.0.0.953.zip', '/home/groups/Vollum/Labs/ReichowLab/TEMP/UNICORN 7.0.0.953.zip']"
 ```
 
 to simply see file system space consumption run this:
