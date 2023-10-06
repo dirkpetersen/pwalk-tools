@@ -1,6 +1,6 @@
 # Pwalk Tools
 
-Pwalk tools offer post-processing and analysis for [John's pwalk](https://github.com/fizwit/filesystem-reporting-tools). If you do not already have a pwalk csv file you can analyse, the best way to generate a clean pwalk csv files is using Froster (https://github.com/dirkpewersen/froster). Run these commands to install Froster and prepare it for indexing. 
+Pwalk tools offer post-processing and analysis for [John's pwalk](https://github.com/fizwit/filesystem-reporting-tools). If you do not already have a pwalk csv file you can analyse, the best way to generate clean pwalk csv files is using Froster (https://github.com/dirkpewersen/froster). Run these commands to install Froster and prepare it for indexing. 
 Note: If you decide to use Pwalk directly and not via Froster you might have to clean up some incompatible characters. Use `iconv -f ISO-8859-1 -t UTF-8 ./old-file.csv > ./new-file.csv` to prepare for the use with DuckDB
 
 ```
