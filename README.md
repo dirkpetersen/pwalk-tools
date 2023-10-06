@@ -1,4 +1,84 @@
-# Pwalk-hotspots
+# Pwalk Tools
+
+PWalk tools offer post-processing and analysis for [John's pwalk](https://github.com/fizwit/filesystem-reporting-tools). If you do not already have a pwalk csv file you can analyse, the best way to generate a clean pwalk csv files is using Froster (https://github.com/dirkpetersen/froster). Run these commands to install Froster and prepare it for indexing
+
+```
+curl https://raw.githubusercontent.com/dirkpetersen/froster/main/install.sh | bash
+froster config --index
+```
+
+then download pwalk-info.py and make the script executable
+
+```
+curl https://raw.githubusercontent.com/dirkpetersen/pwalk-tools/main/pwalk-info.py | chmod +x - 
+```
+
+Now let's scan a folder /shared/my_department and generate a csv file my_department.csv in the home directory 
+
+```
+froster index --pwalk-copy ~/my_department.csv /shared/my_department
+```
+
+## pwalk-info
+
+`pwalk-info.py` can analyse pwalk output csv files with Posix file system metadata. You can either pass an individual pwalk.csv file as an argument or an entire folder with multiple pwalk csv files. (this will only work if all csv files in a folder are pwalk csv files). `pwalk-info.py` has serveral sub commands:
+
+To find out information about duplicate files run this command 
+
+```
+./pwalk-info.py dup --outfile duplicates-test.csv ./pwalk-test.csv
+./pwalk-info.py dup --outfile duplicates-dep.csv ~/my_department.csv
+./pwalk-info.py dup --outfile duplicates-folder.csv ~/my_folder
+```
+
+to simply see file system space consumption run this:
+
+```
+./pwalk-info.py tot ./pwalk-test.csv
+```
+
+and to see what share of file types you have in your pwalk csv run this
+
+```
+$ ./pwalk-info.py typ ./pwalk-test.csv | head
+
+Execute query: SELECT * FROM read_csv_auto('./pwalk-test.csv')
+Fetch result ....
+
+Extension, %, Bytes
+zip, 0.95, 2645449220
+pdf, 0.05, 145320001
+, 0.00, 34856
+xlsx, 0.00, 23880
+lic, 0.00, 1728
+ACC, 0.00, 202
+```
+
+
+also check the help page: 
+
+```
+./pwalk-info.py --help
+usage: pwalk-info  [-h] [--debug] [--cores CORES] [--version] {total,tot,filetypes,typ,duplicates,dup} ...
+
+Provide some details on one or multiple pwalk output files
+
+positional arguments:
+  {total,tot,filetypes,typ,duplicates,dup}
+                        sub-command help
+    total (tot)         print the total number of bytes and GiB in the csv file
+    filetypes (typ)     Print a pwalk report by file extension
+    duplicates (dup)    Export a new csv file with information about duplicate files
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --debug, -d           verbose output for all commands
+  --cores CORES, -c CORES
+                        Number of cores to be allocated for duckdb (default=16)
+  --version, -v         print version info
+```
+
+## pwalk-hotspots
 
 **find folders in your Posix file system that use a lot of space** 
 
