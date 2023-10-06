@@ -1,14 +1,15 @@
 # Pwalk Tools
 
-Pwalk tools offer post-processing and analysis for [John's pwalk](https://github.com/fizwit/filesystem-reporting-tools). If you do not already have a pwalk csv file you can analyse, the best way to generate clean pwalk csv files is using Froster (https://github.com/dirkpewersen/froster). Run these commands to install Froster and prepare it for indexing. 
-Note: If you decide to use Pwalk directly and not via Froster you might have to clean up some incompatible characters. Use `iconv -f ISO-8859-1 -t UTF-8 ./old-file.csv > ./new-file.csv` to prepare for the use with DuckDB
+Pwalk tools offer post-processing and analysis for [John's pwalk](https://github.com/fizwit/filesystem-reporting-tools). If you already got pwalk csv files for your analysis, you can jump to the next section `pwalk-info`. 
+
+If you don't have those files, the best option for generating clean pwalk csv files is using Froster (https://github.com/dirkpetersen/froster). Run these commands to install Froster and prepare it for indexing. Note: If you decide to use Pwalk directly and not via Froster you might have to clean up some incompatible characters. Use `iconv -f ISO-8859-1 -t UTF-8 ./old-file.csv > ./new-file.csv` to prepare for use of pwalk-info.
 
 ```
 curl https://raw.githubusercontent.com/dirkpetersen/froster/main/install.sh | bash
 froster config --index
 ```
 
-Now let's scan a folder /shared/my_department and generate a csv file my_department.csv in the home directory 
+Now let's scan a folder /shared/my_department and create a copy of the pwalk csv file my_department.csv in your home directory 
 
 ```
 froster index --pwalk-copy ~/my_department.csv /shared/my_department
@@ -42,6 +43,9 @@ cat duplicates-test.csv
 filename,modified,bytesize,no,duplicates
 UNICORN 7.0.0.953.zip,1689184019,1322724610,2,"['/home/groups/Vollum/Labs/ReichowLab/UNICORN 7.0.0.953.zip', '/home/groups/Vollum/Labs/ReichowLab/TEMP/UNICORN 7.0.0.953.zip']"
 ```
+
+NOTE: You should request a machine with at least 8 cpu cores to search for duplicates, These resources are used by DuckDB, a high performance replacement for sqlite.
+
 
 to simply see file system space consumption run this:
 
