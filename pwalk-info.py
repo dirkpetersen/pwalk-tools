@@ -64,15 +64,19 @@ def main():
     # ***************************************************************
     if args.subcmd in ['total', 'tot']:
     
-        rows = conn.execute(f"""
-            SELECT SUM(st_size) from combined_csvs where pw_dirsum=0
-            """).fetchall()
+        if args.duplicates:
+            rows = conn.execute(f"""
+                SELECT SUM(bytesize*(no-1)) from combined_csvs
+                """).fetchall()
+        else:            
+            rows = conn.execute(f"""
+                SELECT SUM(st_size) from combined_csvs where pw_dirsum=0
+                """).fetchall()
 
         total = rows[0][0]
         
         print("Total Bytes:", total)
         print("Total   GiB:", round(total/1024/1024/1024,3))
-
 
     # ***************************************************************
     if args.subcmd in ['filetypes', 'typ']:
@@ -185,6 +189,8 @@ def parse_arguments():
         help=textwrap.dedent(f'''
             print the total number of bytes and GiB in the csv file             
         '''), formatter_class=argparse.RawTextHelpFormatter)
+    parser_total.add_argument( '--duplicates', '-d', dest='duplicates', action='store_true', default=False,
+        help="Aggregate duplicate csv file(s) instead of Pwalk csv file(s)")    
     parser_total.add_argument('csvpath', action='store',
         help='csv path can be a file or a folder')
 
